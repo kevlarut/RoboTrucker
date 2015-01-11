@@ -1,0 +1,39 @@
+<html ng-app="gameApp">
+<head>
+	<title>RoboTrucker</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/main.css" />
+	
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+			
+	<script src="js/gameApp.js"></script>
+	<script src="js/gameController.js"></script>
+	<script src="js/mathService.js"></script>
+	<script src="js/mapService.js"></script>
+	<script src="js/mapData.js"></script>
+	
+</head>
+<body ng-controller="gameController" class="gameControllerContainer">
+
+	<div>
+		<h1>Cards:</h1>
+		<button>Load Input</button>
+		<button>Unload Output</button>
+		<button>Turn Right</button>
+		<button>Turn Left</button>
+		<button>Move Forward</button>
+	</div>
+	
+	<table class="gameBoard">
+		<tr ng-repeat="row in mapData.map track by $index">
+			<td ng-repeat="col in row track by $index">
+				{{col}}
+			</td>
+		</tr>
+	</table>
+		
+</body>
+</html>
