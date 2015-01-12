@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 <head>
 	<title>RoboTrucker</title>
@@ -15,8 +16,10 @@
 	<script src="js/programController.js"></script>
 	<script src="js/mathService.js"></script>
 	<script src="js/mapService.js"></script>
+	<script src="js/playerService.js"></script>
 	<script src="js/programService.js"></script>
 	<script src="js/cardData.js"></script>
+	<script src="js/gameData.js"></script>
 	<script src="js/mapData.js"></script>
 	
 </head>
@@ -26,13 +29,7 @@
 		
 		<div ng-controller="gameController" class="gameControllerContainer col-md-8">
 			<h1>Game board</h1>
-			<table class="gameBoard">
-				<tr ng-repeat="row in mapData.map track by $index">
-					<td ng-repeat="col in row track by $index">
-						{{col}}
-					</td>
-				</tr>
-			</table>
+			<canvas width="400" height="400" id="gameCanvas" class="gameCanvas"></canvas>
 		</div>
 		
 		<div ng-controller="cardController" class="col-md-2">

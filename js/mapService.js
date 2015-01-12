@@ -1,40 +1,40 @@
 var gameApp = angular.module('gameApp');
 
-gameApp.service('mapService', function(mathService, mapData) {
+gameApp.service('mapService', function(mathService, gameData, mapData) {
 		
 	this.findAnEmptySpotInTheMap = function() {
-		var x, y;
+		var position = {};
 		do {
-			x = mathService.random(0,mapData.width - 1);
-			y = mathService.random(0, mapData.height - 1);
-		} while (mapData.map[y][x] != "Empty");
+			position.x = mathService.random(0,mapData.width - 1);
+			position.y = mathService.random(0, mapData.height - 1);
+		} while (!this.isTileEmptyAndWithinBounds(position));
 		
-		return {
-			x : x,
-			y : y
-		};
+		return position;
 	}
 	
-	this.placeAtAnEmptyPosition = function(cellContents) {
-		var position = this.findAnEmptySpotInTheMap();
-		mapData.map[position.y][position.x] = cellContents;
-	}
+	this.isTileEmptyAndWithinBounds = function(position) {
 	
-	this.generateMap = function() {
-		var map = [[]];
-		for (var row = 0; row < mapData.height; row++) {
-			map[row] = [];
-			for (var col = 0; col < mapData.width; col++) {
-				map[row][col] = "Empty";
+		if (position.y < 0 || position.y >= mapData.height) {
+			return false;
+		}		
+		if (position.x < 0 || position.x >= mapData.width) {
+			return false;
+		}
+		
+		for (var i = 0; i < gameData.robots.length; i++) {
+			var robot = gameData.robots[i];
+			if (robot.position == position) {
+				return false;
+			}
+		}		
+		for (var i = 0; i < gameData.flags.length; i++) {
+			var flag = gameData.flags[i];
+			if (flag.position == position) {
+				return false;
 			}
 		}
-
-		mapData.map = map;
 		
-		this.placeAtAnEmptyPosition("Red Flag");
-		this.placeAtAnEmptyPosition("Red Robot");
-		this.placeAtAnEmptyPosition("Blue Flag");
-		this.placeAtAnEmptyPosition("Blue Robot");
+		return true;
 		
 	}
 	

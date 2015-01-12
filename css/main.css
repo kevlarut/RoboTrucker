@@ -1,5 +1,6 @@
-.gameBoard td {
-	height: 50px;
-	text-align: center;
-	width: 75px;
+.gameCanvas {
+	background: #333;
+	color: #fff;
+	width: 400px;
+	height: 400px;
 }
