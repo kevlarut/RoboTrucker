@@ -2,7 +2,7 @@ var gameApp = angular.module('gameApp');
 
 gameApp.service('playerService', function(gameData, mapService, mathService) {
 
-	this.addPlayer = function(id, color) {
+	this.addPlayer = function(id, color, truckSrc, flagSrc) {
 		
 		var player = {
 			color: color,
@@ -12,6 +12,7 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 		
 		var flag = {
 			color: color,
+			image: flagSrc,
 			player: id,
 			position: mapService.findAnEmptySpotInTheMap()
 		};
@@ -21,6 +22,7 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 		var direction = directions[mathService.random(0,3)];
 		var robot = {
 			color: color,
+			image: truckSrc,
 			player: id,
 			position: mapService.findAnEmptySpotInTheMap(),
 			facing: direction
