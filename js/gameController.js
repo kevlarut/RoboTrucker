@@ -97,9 +97,9 @@ gameApp.controller('gameController', ['$scope', '$timeout', 'mapService', 'mapDa
 	}
 		
 	$scope.init = function() {
-		playerService.addPlayer('Human', '#ff0000', 'img/truck-red.gif', 'img/flag-red.gif');
-		playerService.addPlayer('A.I.', '#0000ff', 'img/truck-blue.gif', 'img/flag-blue.gif');
-		playerService.setCurrentPlayer('Human');
+		playerService.addPlayer('Joe the Human', 'human', '#ff0000', 'img/truck-red.gif', 'img/flag-red.gif');
+		playerService.addPlayer('A.I.', 'computer', '#0000ff', 'img/truck-blue.gif', 'img/flag-blue.gif');
+		playerService.setCurrentPlayerByIndex(0);
 		$scope.update();
 	}
 	

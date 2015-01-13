@@ -4,10 +4,11 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 
 	this.currentPlayer = null;
 	
-	this.addPlayer = function(id, color, truckSrc, flagSrc) {
+	this.addPlayer = function(id, type, color, truckSrc, flagSrc) {
 		
 		var player = {
 			color: color,
+			type: type,
 			id: id
 		};
 		gameData.players.push(player);		
@@ -33,6 +34,16 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 		
 	}
 
+	this.getCurrentPlayer = function() {
+		for (var i = 0; i < gameData.players.length; i++) {
+			var player = gameData.players[i];
+			if (player.id == this.currentPlayer) {
+				return player;
+			}
+		}		
+		return null;
+	}
+	
 	this.getCurrentPlayerIndex = function() {
 		var currentPlayerIndex = null;
 		for (var i = 0; i < gameData.players.length; i++) {
@@ -45,15 +56,16 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 		return currentPlayerIndex;
 	}
 		
-	this.setCurrentPlayer = function(id) {
+	this.setCurrentPlayerById = function(id) {
 		this.currentPlayer = id;
 	}
 	
 	this.setCurrentPlayerByIndex = function(index) {
-		this.currentPlayer = gameData.players[index].id;
+		var player = gameData.players[index].id;
+		this.currentPlayer = gameData.players[index].id;	
 	}
 	
-	this.setPlayerToNext = function() {
+	this.setPlayerToNext = function() {		
 		var currentPlayerIndex = this.getCurrentPlayerIndex();
 		
 		if (currentPlayerIndex + 1 >= gameData.players.length) {
