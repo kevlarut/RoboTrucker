@@ -12,6 +12,17 @@ gameApp.service('mapService', function(mathService, gameData, mapData) {
 		return position;
 	}
 	
+	this.isThereAFlagInThisTile = function(playerId, position) {
+		for (var i = 0; i < gameData.flags.length; i++) {
+			var flag = gameData.flags[i];
+			if (flag.position.x == position.x && flag.position.y == position.y && flag.player !== playerId) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	this.isTileEmptyAndWithinBounds = function(position) {
 	
 		if (position.y < 0 || position.y >= mapData.height) {

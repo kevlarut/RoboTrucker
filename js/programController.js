@@ -6,28 +6,74 @@ gameApp.controller('programController', ['$scope', '$timeout', 'programService',
 	$scope.programService = programService;
 	
 	$scope.executeProgram = function() {
+	
+		var robot = gameData.robots[$scope.HUMAN_PLAYER_INDEX];
 		for (var i = 0; i < programService.program.length; i++) {
 			var command = programService.program[i];
 			switch (command.id) {
 				case 'input':
-					console.log("ERROR: input not implemented!");
-					break;
-				case 'output':
-					console.log("ERROR: output not implemented!");
+					$scope.input(robot);
 					break;
 				case 'right':
-					console.log("ERROR: right not implemented!");
+					$scope.right(robot);
 					break;
 				case 'left':
-					console.log("ERROR: left not implemented!");
+					$scope.left(robot);
 					break;
 				case 'forward':
-					$scope.forward(gameData.robots[$scope.HUMAN_PLAYER_INDEX]);
+					$scope.forward(robot);
 					break;
 				default:
 					console.log('ERROR in programController.executeProgram: Command "' + command.id + '" is not defined!');
 					break;
 			}
+		}
+	}
+	
+	$scope.input = function(robot) {
+		if (mapService.isThereAFlagInThisTile(robot.player, robot.position)) {
+			alert('You have captured your opponent\'s flag.  You win!');
+			return true;
+		}
+		
+		return false;
+	}
+	
+	$scope.left = function(robot) {
+		switch (robot.facing) {
+			case 'UP':
+				robot.facing = 'LEFT';
+				break;
+			case 'DOWN':
+				robot.facing = 'RIGHT';
+				break;
+			case 'LEFT':
+				robot.facing = 'DOWN';
+				break;
+			case 'RIGHT':
+				robot.facing = 'UP';
+				break;
+			default:
+				return false;				
+		}
+	}
+	
+	$scope.right = function(robot) {
+		switch (robot.facing) {
+			case 'UP':
+				robot.facing = 'RIGHT';
+				break;
+			case 'DOWN':
+				robot.facing = 'LEFT';
+				break;
+			case 'LEFT':
+				robot.facing = 'UP';
+				break;
+			case 'RIGHT':
+				robot.facing = 'DOWN';
+				break;
+			default:
+				return false;				
 		}
 	}
 	

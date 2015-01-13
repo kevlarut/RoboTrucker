@@ -8,10 +8,6 @@ gameApp.service('cardData', function() {
 			title: 'Load Input'
 		},
 		{
-			id: 'output',
-			title: 'Unload Output'
-		},
-		{
 			id: 'right',
 			title: 'Turn Right'
 		},
