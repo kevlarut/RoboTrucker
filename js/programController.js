@@ -1,13 +1,12 @@
 var gameApp = angular.module('gameApp');
 
-gameApp.controller('programController', ['$scope', '$timeout', 'programService', 'gameData', 'mapService', function($scope, $timeout, programService, gameData, mapService) {
+gameApp.controller('programController', ['$scope', '$timeout', 'programService', 'gameData', 'mapService', 'playerService', function($scope, $timeout, programService, gameData, mapService, playerService) {
  	
-	$scope.HUMAN_PLAYER_INDEX = 0;
 	$scope.programService = programService;
 	
 	$scope.executeProgram = function() {
 	
-		var robot = gameData.robots[$scope.HUMAN_PLAYER_INDEX];
+		var robot = gameData.robots[playerService.getCurrentPlayerIndex()];
 		for (var i = 0; i < programService.program.length; i++) {
 			var command = programService.program[i];
 			switch (command.id) {

@@ -2,6 +2,8 @@ var gameApp = angular.module('gameApp');
 
 gameApp.service('playerService', function(gameData, mapService, mathService) {
 
+	this.currentPlayer = null;
+	
 	this.addPlayer = function(id, color, truckSrc, flagSrc) {
 		
 		var player = {
@@ -29,6 +31,37 @@ gameApp.service('playerService', function(gameData, mapService, mathService) {
 		};
 		gameData.robots.push(robot);
 		
+	}
+
+	this.getCurrentPlayerIndex = function() {
+		var currentPlayerIndex = null;
+		for (var i = 0; i < gameData.players.length; i++) {
+			var player = gameData.players[i];
+			if (player.id == this.currentPlayer) {
+				currentPlayerIndex = i;
+				break;
+			}
+		}
+		return currentPlayerIndex;
+	}
+		
+	this.setCurrentPlayer = function(id) {
+		this.currentPlayer = id;
+	}
+	
+	this.setCurrentPlayerByIndex = function(index) {
+		this.currentPlayer = gameData.players[index].id;
+	}
+	
+	this.setPlayerToNext = function() {
+		var currentPlayerIndex = this.getCurrentPlayerIndex();
+		
+		if (currentPlayerIndex + 1 >= gameData.players.length) {
+			this.setCurrentPlayerByIndex(0);
+		}
+		else {
+			this.setCurrentPlayerByIndex(currentPlayerIndex + 1);
+		}
 	}
 	
 });
