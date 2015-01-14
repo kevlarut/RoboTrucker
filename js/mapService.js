@@ -7,6 +7,7 @@ gameApp.service('mapService', function(mathService, gameData, mapData) {
 		do {
 			position.x = mathService.random(0,mapData.width - 1);
 			position.y = mathService.random(0, mapData.height - 1);
+			position.z = 0;
 		} while (!this.isTileEmptyAndWithinBounds(position));
 		
 		return position;
