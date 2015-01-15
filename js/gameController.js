@@ -1,8 +1,7 @@
 var gameApp = angular.module('gameApp');
 
-gameApp.controller('gameController', ['$scope', '$timeout', 'mapService', 'mapData', 'playerService', 'gameData', function($scope, $timeout, mapService, mapData, playerService, gameData) {
+gameApp.controller('gameController', ['$scope', '$timeout', 'playerService', 'gameData', function($scope, $timeout, playerService, gameData) {
  
-	$scope.angle = 0;
 	$scope.lastUpdated = new Date();
 
 	$scope.renderCanvas = function() {
@@ -198,26 +197,6 @@ gameApp.controller('gameController', ['$scope', '$timeout', 'mapService', 'mapDa
 		context.drawImage(image, x, y);
 	}
 	
-	$scope.drawRotatedImage = function(src, x, y, rotationDegrees) {
-	
-		var image = new Image();
-		image.src = src;
-		
-		var angle = $scope.angle;
-		var canvas = document.getElementById('gameCanvas');
-		var context = canvas.getContext('2d');
-		context.save();
-		var transX = (image.width / 2) + x;
-		var transY = (image.height / 2) + y;
-		context.translate(transX, transY);
-		var deg = rotationDegrees;
-		var rad = deg * Math.PI / 180;
-		context.rotate(rad);
-		context.translate(0 - transX, 0 - transY);
-		context.drawImage(image, x, y);		
-		context.restore();
-	}
-	
 	$scope.clearCanvas = function() {
 		var canvas = document.getElementById('gameCanvas');
 		var context = canvas.getContext('2d');
@@ -236,13 +215,12 @@ gameApp.controller('gameController', ['$scope', '$timeout', 'mapService', 'mapDa
 		var now = new Date();
 		var timeSinceLastUpdate = now.getTime() - $scope.lastUpdated.getTime();
 					
-		$scope.angle++;
 		$scope.renderCanvas();
 		
 		$scope.lastUpdated = now;		
 		$timeout($scope.update, 1000 / framesPerSecond);
 	}
-		
+
 	$scope.init = function() {
 		var blue = {
 			r: 50,
